@@ -1,1 +1,28 @@
+# Build Maven
 target/
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+.factorypath
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Ambiente (HOME=/workspace neste container)
+.cache/
+.local/
+.config/
