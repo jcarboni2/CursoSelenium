@@ -12,8 +12,8 @@ public class DriverFactory {
 	private static WebDriver driver;
 
 	static {
-		// Garante que o browser único seja fechado ao fim da JVM (mvn test / IDE),
-		// já que as classes de teste não fazem mais killDriver por teste.
+		// Ensures the single browser is closed when the JVM ends (mvn test / IDE),
+		// since test classes no longer call killDriver per test.
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> killDriver()));
 	}
 	
@@ -21,12 +21,12 @@ public class DriverFactory {
 	
 	public static WebDriver getDriver(){
 		if(driver == null) {
-			// Selenium 4.6+: Selenium Manager resolve o driver automaticamente (sem System.setProperty manual).
-			// Mantida a mesma assinatura para não quebrar DSL/BaseTest.
-			// Headless por padrão (rápido, funciona em CI sem display).
-			// Para ver o browser: mvn test -Dheadless=false (ou VM option -Dheadless=false na IDE).
+			// Selenium 4.6+: Selenium Manager resolves the driver automatically (no manual System.setProperty).
+			// Same signature kept to avoid breaking DSL/BaseTest.
+			// Headless by default (fast, works on display-less CI).
+			// To watch the browser: mvn test -Dheadless=false (or -Dheadless=false VM option in the IDE).
 			boolean headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
-			switch (Propriedades.browser) {
+			switch (Properties.browser) {
 				case FIREFOX: {
 					FirefoxOptions options = new FirefoxOptions();
 					if(headless) {
@@ -37,7 +37,7 @@ public class DriverFactory {
 				case CHROME:
 				default: {
 					ChromeOptions options = new ChromeOptions();
-					// Estabilidade em CI/container (sem efeito colateral no uso local com GUI).
+					// Stability on CI/containers (no side effect on local GUI runs).
 					options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
 					if(headless) {
 						options.addArguments("--headless=new");
@@ -51,23 +51,23 @@ public class DriverFactory {
 	}
 
 	/**
-	 * Sobe o Chrome uma única vez (singleton reaproveitado por todos os testes)
-	 * e abre a página já com refresh. Chamar uma vez por classe (@BeforeClass).
+	 * Launches Chrome a single time (singleton reused by every test)
+	 * and opens the page with a refresh. Call once per class (@BeforeClass).
 	 */
-	public static void abrirPagina(String url) {
+	public static void openPage(String url) {
 		getDriver().get(url);
 		getDriver().navigate().refresh();
 	}
 
 	/**
-	 * Só recarrega a página atual (rápido, sem get). Chamar antes de cada teste (@Before).
-	 * Volta ao conteúdo principal antes do refresh para não herdar frame de outro teste.
+	 * Just reloads the current page (fast, no get). Call before each test (@Before).
+	 * Backs to the main content before refreshing to avoid inheriting another test's frame.
 	 */
-	public static void recarregarPagina() {
+	public static void reloadPage() {
 		try {
 			getDriver().switchTo().defaultContent();
 		} catch (Exception ignored) {
-			// Ex.: alerta aberto — o próprio teste trata; segue para o refresh.
+			// E.g. open alert — the test itself handles it; proceed to refresh.
 		}
 		getDriver().navigate().refresh();
 	}

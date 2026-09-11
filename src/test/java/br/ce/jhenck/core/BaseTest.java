@@ -20,20 +20,20 @@ public class BaseTest {
 	public TestName testName = new TestName();
 
 	@Before
-	public void inicializaBase() {
-		// Garante o browser único antes de cada teste (criado uma vez, reaproveitado).
-		// O fechamento é global: SuiteTest.@AfterClass ou shutdown hook da JVM.
+	public void setUpBase() {
+		// Ensures the single browser before each test (created once, reused).
+		// Teardown is global: SuiteTest.@AfterClass or JVM shutdown hook.
 		getDriver();
 	}
 	
 	@After
-	public void finaliza() throws IOException{
+	public void tearDown() throws IOException{
 		TakesScreenshot ss = (TakesScreenshot) getDriver();
-		File arquivo = ss.getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(arquivo, new File("target" + File.separator + "screenshot" +
+		File screenshotFile = ss.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(screenshotFile, new File("target" + File.separator + "screenshot" +
 				File.separator + testName.getMethodName() + ".jpg"));
 		
-		if(Propriedades.FECHAR_BROWSER) {
+		if(Properties.CLOSE_BROWSER) {
 			killDriver();
 		}
 	}

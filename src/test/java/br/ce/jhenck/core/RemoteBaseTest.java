@@ -15,18 +15,18 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-// Infraestrutura de execução remota (não é teste).
-// Ordem de resolução do driver (container é opt-in: sem ele, zero contato com Docker):
-// 1) Grid externo via -Dselenium.grid.url (sem container);
-// 2) Grid em container via -Dselenium.grid.container=true (exige Docker daemon);
-// 3) Driver local via Selenium Manager (padrão silencioso).
+// Remote execution infrastructure (not a test).
+// Driver resolution order (container is opt-in: without it, zero Docker contact):
+// 1) External Grid via -Dselenium.grid.url (no container);
+// 2) Containerized Grid via -Dselenium.grid.container=true (requires Docker daemon);
+// 3) Local driver via Selenium Manager (silent default).
 public class RemoteBaseTest {
 
 	private static GenericContainer<?> grid;
 
-	public static boolean isContainerAtivo() {
+	public static boolean isContainerEnabled() {
 		if (Boolean.parseBoolean(System.getProperty("selenium.local", "false"))) {
-			return false; // compat: modo local legado
+			return false; // compat: legacy local mode
 		}
 		return Boolean.parseBoolean(System.getProperty("selenium.grid.container", "false"));
 	}
@@ -34,11 +34,11 @@ public class RemoteBaseTest {
 	@BeforeClass
 	public static void startGrid() {
 		if (!System.getProperty("selenium.grid.url", "").trim().isEmpty()) {
-			return; // Grid externo: sem container
+			return; // External Grid: no container
 		}
-		if (!isContainerAtivo()) {
-			System.out.println("INFO [RemoteBaseTest]: driver local (container desativado por padrao; ative com -Dselenium.grid.container=true).");
-			return; // Padrão: local direto, sem sondar Docker, sem ruído no log
+		if (!isContainerEnabled()) {
+			System.out.println("INFO [RemoteBaseTest]: local driver (container disabled by default; enable with -Dselenium.grid.container=true).");
+			return; // Default: direct local, no Docker probing, no log noise
 		}
 		try {
 			grid = new GenericContainer<>("selenium/standalone-chrome:latest")
@@ -48,7 +48,7 @@ public class RemoteBaseTest {
 			grid.start();
 		} catch (RuntimeException e) {
 			grid = null;
-			System.out.println("AVISO [RemoteBaseTest]: Docker indisponível, usando driver local. Detalhe: " + e.getMessage());
+			System.out.println("WARNING [RemoteBaseTest]: Docker unavailable, using local driver. Detail: " + e.getMessage());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class RemoteBaseTest {
 		if (grid != null && grid.isRunning()) {
 			return "http://" + grid.getHost() + ":" + grid.getMappedPort(4444) + "/wd/hub";
 		}
-		return null; // sem Grid: fallback local
+		return null; // no Grid: local fallback
 	}
 
 	protected static WebDriver newRemoteDriver(Capabilities options) throws MalformedURLException {

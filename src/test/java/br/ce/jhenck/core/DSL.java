@@ -12,214 +12,214 @@ import org.openqa.selenium.support.ui.Select;
 
 public class DSL {
 	
-	/********* TextField e TextArea ************/
+	/********* TextField and TextArea ************/
 	
-	public void escrever(By by, String texto){
-		getDriver().findElement(by).clear();
-		getDriver().findElement(by).sendKeys(texto);
+	public void write(By locator, String text){
+		getDriver().findElement(locator).clear();
+		getDriver().findElement(locator).sendKeys(text);
 	}
 
-	public void escrever(String id_campo, String texto){
-		escrever(By.id(id_campo), texto);
+	public void write(String fieldId, String text){
+		write(By.id(fieldId), text);
 	}
 	
-	public String obterValorCampo(String id_campo) {
-		return getDriver().findElement(By.id(id_campo)).getAttribute("value");
+	public String getFieldValue(String fieldId) {
+		return getDriver().findElement(By.id(fieldId)).getAttribute("value");
 	}
 	
-	/********* Radio e Check ************/
+	/********* Radio and Checkbox ************/
 	
-	public void clicarRadio(By by) {
-		getDriver().findElement(by).click();
+	public void clickRadio(By locator) {
+		getDriver().findElement(locator).click();
 	}
 	
-	public void clicarRadio(String id) {
-		clicarRadio(By.id(id));
+	public void clickRadio(String id) {
+		clickRadio(By.id(id));
 	}
 	
-	public boolean isRadioMarcado(String id){
+	public boolean isRadioSelected(String id){
 		return getDriver().findElement(By.id(id)).isSelected();
 	}
 	
-	public void clicarCheck(String id) {
+	public void clickCheckbox(String id) {
 		getDriver().findElement(By.id(id)).click();
 	}
 	
-	public boolean isCheckMarcado(String id){
+	public boolean isCheckboxSelected(String id){
 		return getDriver().findElement(By.id(id)).isSelected();
 	}
 	
-	/********* Combo ************/
+	/********* Dropdown ************/
 	
-	public void selecionarCombo(String id, String valor) {
+	public void selectDropdown(String id, String value) {
 		WebElement element = getDriver().findElement(By.id(id));
-		Select combo = new Select(element);
-		combo.selectByVisibleText(valor);
+		Select dropdown = new Select(element);
+		dropdown.selectByVisibleText(value);
 	}
 	
-	public void deselecionarCombo(String id, String valor) {
+	public void deselectDropdown(String id, String value) {
 		WebElement element = getDriver().findElement(By.id(id));
-		Select combo = new Select(element);
-		combo.deselectByVisibleText(valor);
+		Select dropdown = new Select(element);
+		dropdown.deselectByVisibleText(value);
 	}
 
-	public String obterValorCombo(String id) {
+	public String getSelectedDropdownValue(String id) {
 		WebElement element = getDriver().findElement(By.id(id));
-		Select combo = new Select(element);
-		return combo.getFirstSelectedOption().getText();
+		Select dropdown = new Select(element);
+		return dropdown.getFirstSelectedOption().getText();
 	}
 	
-	public List<String> obterValoresCombo(String id) {
+	public List<String> getSelectedDropdownValues(String id) {
 		WebElement element = getDriver().findElement(By.id("elementosForm:esportes"));
-		Select combo = new Select(element);
-		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
-		List<String> valores = new ArrayList<String>();
-		for(WebElement opcao: allSelectedOptions) {
-			valores.add(opcao.getText());
+		Select dropdown = new Select(element);
+		List<WebElement> allSelectedOptions = dropdown.getAllSelectedOptions();
+		List<String> values = new ArrayList<String>();
+		for(WebElement option: allSelectedOptions) {
+			values.add(option.getText());
 		}
-		return valores;
+		return values;
 	}
 	
-	public int obterQuantidadeOpcoesCombo(String id){
+	public int getDropdownOptionCount(String id){
 		WebElement element = getDriver().findElement(By.id(id));
-		Select combo = new Select(element);
-		List<WebElement> options = combo.getOptions();
+		Select dropdown = new Select(element);
+		List<WebElement> options = dropdown.getOptions();
 		return options.size();
 	}
 	
-	public boolean verificarOpcaoCombo(String id, String opcao){
+	public boolean hasDropdownOption(String id, String expectedOption){
 		WebElement element = getDriver().findElement(By.id(id));
-		Select combo = new Select(element);
-		List<WebElement> options = combo.getOptions();
+		Select dropdown = new Select(element);
+		List<WebElement> options = dropdown.getOptions();
 		for(WebElement option: options) {
-			if(option.getText().equals(opcao)){
+			if(option.getText().equals(expectedOption)){
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public void selecionarComboPrime(String radical, String valor) {
-		clicarRadio(By.xpath("//*[@id='"+radical+"_input']/../..//span"));
-		clicarRadio(By.xpath("//*[@id='"+radical+"_items']//li[.='"+valor+"']"));
+	public void selectPrimeDropdown(String baseId, String value) {
+		clickRadio(By.xpath("//*[@id='"+baseId+"_input']/../..//span"));
+		clickRadio(By.xpath("//*[@id='"+baseId+"_items']//li[.='"+value+"']"));
 	}
 	
-	/********* Botao ************/
+	/********* Button ************/
 	
-	public void clicarBotao(String id) {
+	public void clickButton(String id) {
 		getDriver().findElement(By.id(id)).click();
 	}
 	
-	public String obterValueElemento(String id) {
+	public String getElementValue(String id) {
 		return getDriver().findElement(By.id(id)).getAttribute("value");
 	}
 	
 	/********* Link ************/
 	
-	public void clicarLink(String link) {
-		getDriver().findElement(By.linkText(link)).click();
+	public void clickLink(String linkText) {
+		getDriver().findElement(By.linkText(linkText)).click();
 	}
 	
-	/********* Textos ************/
+	/********* Texts ************/
 	
-	public String obterTexto(By by) {
-		return getDriver().findElement(by).getText();
+	public String getText(By locator) {
+		return getDriver().findElement(locator).getText();
 	}
 	
-	public String obterTexto(String id) {
-		return obterTexto(By.id(id));
+	public String getText(String id) {
+		return getText(By.id(id));
 	}
 	
 	/********* Alerts ************/
 	
-	public String alertaObterTexto(){
+	public String getAlertText(){
 		Alert alert = getDriver().switchTo().alert();
 		return alert.getText();
 	}
 	
-	public String alertaObterTextoEAceita(){
+	public String getAlertTextAndAccept(){
 		Alert alert = getDriver().switchTo().alert();
-		String valor = alert.getText();
+		String value = alert.getText();
 		alert.accept();
-		return valor;
+		return value;
 		
 	}
 	
-	public String alertaObterTextoENega(){
+	public String getAlertTextAndDismiss(){
 		Alert alert = getDriver().switchTo().alert();
-		String valor = alert.getText();
+		String value = alert.getText();
 		alert.dismiss();
-		return valor;
+		return value;
 		
 	}
 	
-	public void alertaEscrever(String valor) {
+	public void writeToAlert(String value) {
 		Alert alert = getDriver().switchTo().alert();
-		alert.sendKeys(valor);
+		alert.sendKeys(value);
 		alert.accept();
 	}
 	
-	/********* Frames e Janelas ************/
+	/********* Frames and Windows ************/
 	
-	public void entrarFrame(String id) {
+	public void switchToFrame(String id) {
 		getDriver().switchTo().frame(id);
 	}
 	
-	public void sairFrame(){
+	public void exitFrame(){
 		getDriver().switchTo().defaultContent();
 	}
 	
-	public void trocarJanela(String id) {
+	public void switchToWindow(String id) {
 		getDriver().switchTo().window(id);
 	}
 	
 	/************** JS *********************/
 	
-	public Object executarJS(String cmd, Object... param) {
+	public Object executeJS(String cmd, Object... param) {
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		return js.executeScript(cmd, param);
 	}
 	
-	/************** Tabela *********************/
+	/************** Table *********************/
 	
-	public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela){
-		//procurar coluna do registro
-		WebElement tabela = getDriver().findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
-		int idColuna = obterIndiceColuna(colunaBusca, tabela);
+	public void clickTableButton(String searchColumn, String value, String buttonColumn, String tableId){
+		//find the record column
+		WebElement table = getDriver().findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
+		int columnIndex = getColumnIndex(searchColumn, table);
 		
-		//encontrar a linha do registro
-		int idLinha = obterIndiceLinha(valor, tabela, idColuna);
+		//find the record row
+		int rowIndex = getRowIndex(value, table, columnIndex);
 		
-		//procurar coluna do botao
-		int idColunaBotao = obterIndiceColuna(colunaBotao, tabela);
+		//find the button column
+		int buttonColumnIndex = getColumnIndex(buttonColumn, table);
 		
-		//clicar no botao da celula encontrada
-		WebElement celula = tabela.findElement(By.xpath(".//tr["+idLinha+"]/td["+idColunaBotao+"]"));
-		celula.findElement(By.xpath(".//input")).click();
+		//click the button in the found cell
+		WebElement cell = table.findElement(By.xpath(".//tr["+rowIndex+"]/td["+buttonColumnIndex+"]"));
+		cell.findElement(By.xpath(".//input")).click();
 		
 	}
 
-	protected int obterIndiceLinha(String valor, WebElement tabela, int idColuna) {
-		List<WebElement> linhas = tabela.findElements(By.xpath("./tbody/tr/td["+idColuna+"]"));
-		int idLinha = -1;
-		for(int i = 0; i < linhas.size(); i++) {
-			if(linhas.get(i).getText().equals(valor)) {
-				idLinha = i+1;
+	protected int getRowIndex(String value, WebElement table, int columnIndex) {
+		List<WebElement> rows = table.findElements(By.xpath("./tbody/tr/td["+columnIndex+"]"));
+		int rowIndex = -1;
+		for(int i = 0; i < rows.size(); i++) {
+			if(rows.get(i).getText().equals(value)) {
+				rowIndex = i+1;
 				break;
 			}
 		}
-		return idLinha;
+		return rowIndex;
 	}
 
-	protected int obterIndiceColuna(String coluna, WebElement tabela) {
-		List<WebElement> colunas = tabela.findElements(By.xpath(".//th"));
-		int idColuna = -1;
-		for(int i = 0; i < colunas.size(); i++) {
-			if(colunas.get(i).getText().equals(coluna)) {
-				idColuna = i+1;
+	protected int getColumnIndex(String column, WebElement table) {
+		List<WebElement> columns = table.findElements(By.xpath(".//th"));
+		int columnIndex = -1;
+		for(int i = 0; i < columns.size(); i++) {
+			if(columns.get(i).getText().equals(column)) {
+				columnIndex = i+1;
 				break;
 			}
 		}
-		return idColuna;
+		return columnIndex;
 	}
 }

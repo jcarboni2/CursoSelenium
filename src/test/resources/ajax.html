@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8" />
-<title>Ajax Local - Campo de Treinamento</title>
+<title>Local Ajax - Training Field</title>
 </head>
 <body>
-<h3>Ajax Basico (local, sem dependencia externa)</h3>
+<h3>Basic Ajax (local, no external dependency)</h3>
 <form id="ajaxForm" onsubmit="return false;">
-<label for="ajax:name">Nome:</label>
+<label for="ajax:name">Name:</label>
 <input id="ajax:name" type="text" name="ajax:name" />
-<input id="ajax:button" type="button" value="Ajax Submit" onclick="enviar()" />
+<input id="ajax:button" type="button" value="Submit" onclick="enviar()" />
 </form>
-<div id="ajax:status" style="display:none">Carregando...</div>
-<div>Resultado: <span id="ajax:display"></span></div>
+<div id="ajax:status" style="display:none">Loading...</div>
+<div>Result: <span id="ajax:display"></span></div>
 <script>
 function enviar(){
   var v = document.getElementById('ajax:name').value;

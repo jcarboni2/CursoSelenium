@@ -13,8 +13,8 @@ cd CursoSelenium
 
 mvn clean test              # headless (padrão: rápido, funciona em CI)
 mvn test -Dheadless=false   # com o browser visível (debug local)
-mvn test -Dtest=CadastroTest    # um teste só
-mvn test -Dtest=SuiteTest       # suíte (Cadastro + Regras)
+mvn test -Dtest=RegistrationTest    # um teste só
+mvn test -Dtest=SuiteTest       # suíte (Registration + Rules)
 mvn package -DskipTests         # pular testes
 ```
 
@@ -23,7 +23,7 @@ Pela IDE: importe o `pom.xml` (JDK 17) e dê Run em `SuiteTest` ou qualquer `*Te
 ## Como funciona
 - **Testes no build:** layout padrão `src/test/java` com nomes `*Test` — o Surefire detecta tudo sem config extra.
 - **Browser único:** o Chrome abre uma vez e é reaproveitado por todos os testes (fecha na suíte ou no fim da JVM).
-- **Página por classe:** cada classe carrega sua página uma vez (`@BeforeClass` → `abrirPagina`) e dá só `refresh` antes de cada teste (`recarregarPagina`) — bem mais rápido.
+- **Página por classe:** cada classe carrega sua página uma vez (`@BeforeClass` → `openPage`) e dá só `refresh` antes de cada teste (`reloadPage`) — bem mais rápido.
 - **Prints:** `target/screenshot/<Teste>.jpg` | **Relatórios:** `target/surefire-reports/`
 
 ## Grid (opcional)

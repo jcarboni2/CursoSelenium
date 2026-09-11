@@ -18,16 +18,16 @@ import java.net.Socket;
 
 public class GoogleTest extends RemoteBaseTest {
 	
-	// Browser único da classe: iniciado uma vez (@BeforeClass), página recarregada por teste.
-	// Sem internet o teste é pulado (skipped, sem falhar o build) com mensagem evidente.
+	// Single class-level browser: launched once (@BeforeClass), page reloaded per test.
+	// Without internet the test is skipped (no build failure) with a clear message.
 	private static WebDriver driver;
-	private static boolean semConexao = false;
+	private static boolean offline = false;
 
 	@BeforeClass
-	public static void carregarBrowser() throws MalformedURLException{
-		semConexao = !temConexao();
-		if (semConexao) {
-			System.out.println("AVISO [GoogleTest]: sem conexão com www.google.com — teste NÃO executado (skipped, build segue verde).");
+	public static void launchBrowser() throws MalformedURLException{
+		offline = !hasConnection();
+		if (offline) {
+			System.out.println("WARNING [GoogleTest]: no connection to www.google.com — test NOT executed (skipped, build stays green).");
 			return;
 		}
 		ChromeOptions options = new ChromeOptions();
@@ -41,13 +41,13 @@ public class GoogleTest extends RemoteBaseTest {
 	}
 
 	@Before
-	public void inicializa(){
-		Assume.assumeTrue("Sem conexão com www.google.com — GoogleTest ignorado.", !semConexao);
+	public void setUp(){
+		Assume.assumeTrue("No connection to www.google.com — GoogleTest skipped.", !offline);
 		driver.navigate().refresh();
 	}
 	
 	@AfterClass
-	public static void finaliza(){
+	public static void tearDown(){
 		if(driver != null){
 			driver.quit();
 			driver = null;
@@ -55,12 +55,12 @@ public class GoogleTest extends RemoteBaseTest {
 	}
 	
 	@Test
-	public void teste() {
+	public void shouldDisplayGoogleTitle() {
 		Assert.assertEquals("Google", driver.getTitle());
 	}
 
-	// Sonda rápida (3s): evita que a falta de internet quebre o build.
-	private static boolean temConexao() {
+	// Quick probe (3s): prevents missing internet from breaking the build.
+	private static boolean hasConnection() {
 		try (Socket socket = new Socket()) {
 			socket.connect(new InetSocketAddress("www.google.com", 443), 3000);
 			return true;

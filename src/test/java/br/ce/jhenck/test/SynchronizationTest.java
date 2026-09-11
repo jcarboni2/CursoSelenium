@@ -1,7 +1,7 @@
 package br.ce.jhenck.test;
-import static br.ce.jhenck.core.DriverFactory.abrirPagina;
+import static br.ce.jhenck.core.DriverFactory.openPage;
 import static br.ce.jhenck.core.DriverFactory.getDriver;
-import static br.ce.jhenck.core.DriverFactory.recarregarPagina;
+import static br.ce.jhenck.core.DriverFactory.reloadPage;
 
 import java.time.Duration;
 
@@ -15,42 +15,42 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class SincronismoTest extends BaseTest {
+public class SynchronizationTest extends BaseTest {
 
 	private DSL dsl;
 
 	@BeforeClass
-	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
+	public static void loadPage(){
+		openPage("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before
-	public void inicializa(){
-		recarregarPagina();
+	public void setUp(){
+		reloadPage();
 		dsl = new DSL();
 	}
 	
 	@Test
-	public void deveUtilizarEsperaFixa() throws InterruptedException{
-		dsl.clicarBotao("buttonDelay");
+	public void shouldUseFixedWait() throws InterruptedException{
+		dsl.clickButton("buttonDelay");
 		Thread.sleep(5000);
-		dsl.escrever("novoCampo", "Deu certo?");
+		dsl.write("novoCampo", "Did it work?");
 	}
 	
 	@Test
-	public void deveUtilizarEsperaImplicita() throws InterruptedException{
+	public void shouldUseImplicitWait() throws InterruptedException{
 		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		dsl.clicarBotao("buttonDelay");
-		dsl.escrever("novoCampo", "Deu certo?");
+		dsl.clickButton("buttonDelay");
+		dsl.write("novoCampo", "Did it work?");
 		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 	}
 	
 
 	@Test
-	public void deveUtilizarEsperaExplicita() throws InterruptedException{
-		dsl.clicarBotao("buttonDelay");
+	public void shouldUseExplicitWait() throws InterruptedException{
+		dsl.clickButton("buttonDelay");
 		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
-		dsl.escrever("novoCampo", "Deu certo?");
+		dsl.write("novoCampo", "Did it work?");
 	}
 }
