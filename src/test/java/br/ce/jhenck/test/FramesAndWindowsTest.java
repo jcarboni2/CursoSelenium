@@ -63,8 +63,6 @@ public class FramesAndWindowsTest extends BaseTest {
 	@Test
 	public void shouldInteractWithUntitledWindows(){
 		dsl.clickButton("buttonPopUpHard");
-		System.out.println(getDriver().getWindowHandle());
-		System.out.println(getDriver().getWindowHandles());
 		dsl.switchToWindow((String) getDriver().getWindowHandles().toArray()[1]);
 		dsl.write(By.tagName("textarea"), "Did it work?");
 		dsl.switchToWindow((String) getDriver().getWindowHandles().toArray()[0]);

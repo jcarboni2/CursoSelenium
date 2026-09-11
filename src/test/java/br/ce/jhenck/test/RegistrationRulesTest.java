@@ -77,7 +77,6 @@ public class RegistrationRulesTest extends BaseTest {
 		if(foods.contains("Vegetarian")) page.selectVegetarianOption(); 
 		page.selectSports(sports);
 		page.submitRegistration();
-		System.out.println(expectedMessage);
 		Assert.assertEquals(expectedMessage, dsl.getAlertTextAndAccept());
 	}
 }
