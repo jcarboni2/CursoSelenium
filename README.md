@@ -35,6 +35,7 @@ docker compose down
 
 ## Se der erro
 - `0 testes` → rode `mvn clean test` (já configurado no pom).
+- Sem internet → só o `GoogleTest` é pulado (`Skipped: 1`, com aviso no log); o resto é local e passa.
 - `localhost:4444` sem resposta → rode sem flags (driver local) ou suba o compose.
 - Erro de Docker/Testcontainers → padrão é local; só use `-Dselenium.grid.container=true` com Docker atual.
 - Linux sem Chrome instalado (ex.: container Alpine) → `mvn test -Dwebdriver.chrome.driver=/usr/bin/chromedriver`.
