@@ -11,6 +11,7 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<selenium.version>4.49.0</selenium.version>
 		<testcontainers.version>1.20.1</testcontainers.version>
+		<commons-compress.version>1.28.0</commons-compress.version>
 	</properties>
 
 	<build>
@@ -62,6 +63,15 @@
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers</artifactId>
 			<version>${testcontainers.version}</version>
+		</dependency>
+
+		<!-- Override do commons-compress transitivo do Testcontainers (1.24.0):
+		     corrige CVE-2024-25710 (fix 1.26.0) e CVE-2024-26308 (fix 1.27.0).
+		     Dependência direta vence pela regra nearest-wins do Maven. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>${commons-compress.version}</version>
 		</dependency>
 
 		<!-- Logger simples p/ Testcontainers/Selenium (evita warning SLF4J NOP) -->
