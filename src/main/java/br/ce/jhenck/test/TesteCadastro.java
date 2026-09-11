@@ -1,8 +1,10 @@
 package br.ce.jhenck.test;
-import static br.ce.jhenck.core.DriverFactory.getDriver;
+import static br.ce.jhenck.core.DriverFactory.abrirPagina;
+import static br.ce.jhenck.core.DriverFactory.recarregarPagina;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.ce.jhenck.core.BaseTest;
@@ -12,9 +14,14 @@ public class TesteCadastro extends BaseTest {
 	
 	private CampoTreinamentoPage page;
 
+	@BeforeClass
+	public static void carregarPagina(){
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+
 	@Before
 	public void inicializa(){
-		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		recarregarPagina();
 		page = new CampoTreinamentoPage();
 	}
 

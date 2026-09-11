@@ -24,10 +24,40 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!-- Expõe src/main/java também como fonte de testes (sem mover arquivos):
+			     os testes estão em br.ce.jhenck.test com nomes Teste* (padrão PT),
+			     fora do layout padrão src/test/java. Sem isso, 'mvn test' roda 0 testes. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.0</version>
+				<executions>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
+				<configuration>
+					<!-- Inclui o padrão PT-BR Teste* + SuiteTeste no 'mvn test/verify/package'.
+					     Sem isso o Surefire (padrão Test*/ *Test) ignoraria tudo. -->
+					<includes>
+						<include>**/Teste*.java</include>
+						<include>**/Suite*.java</include>
+					</includes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

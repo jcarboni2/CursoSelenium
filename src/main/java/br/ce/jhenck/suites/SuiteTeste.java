@@ -15,6 +15,7 @@ import br.ce.jhenck.test.TesteRegrasCadastro;
 })
 public class SuiteTeste {
 	
+	// Fecha o browser único ao fim da suíte (no mvn test o fechamento é via shutdown hook).
 	@AfterClass
 	public static void finalizaTudo(){
 		DriverFactory.killDriver();

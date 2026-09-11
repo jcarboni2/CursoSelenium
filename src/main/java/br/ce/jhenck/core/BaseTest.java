@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.OutputType;
@@ -17,6 +18,13 @@ public class BaseTest {
 	
 	@Rule
 	public TestName testName = new TestName();
+
+	@Before
+	public void inicializaBase() {
+		// Garante o browser único antes de cada teste (criado uma vez, reaproveitado).
+		// O fechamento é global: SuiteTeste.@AfterClass ou shutdown hook da JVM.
+		getDriver();
+	}
 	
 	@After
 	public void finaliza() throws IOException{

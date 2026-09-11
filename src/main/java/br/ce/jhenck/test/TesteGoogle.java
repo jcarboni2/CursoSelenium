@@ -1,7 +1,8 @@
 package br.ce.jhenck.test;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -13,24 +14,33 @@ import java.net.MalformedURLException;
 
 public class TesteGoogle extends RemoteBaseTest {
 	
-	private WebDriver driver;
+	// Browser único da classe: iniciado uma vez (@BeforeClass), página recarregada por teste.
+	private static WebDriver driver;
+
+	@BeforeClass
+	public static void carregarBrowser() throws MalformedURLException{
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+		driver = newRemoteDriver(options);
+		driver.manage().window().setSize(new Dimension(1200, 765));
+		driver.get("http://www.google.com");
+	}
 
 	@Before
-	public void inicializa() throws MalformedURLException{
-		driver = newRemoteDriver(new ChromeOptions());
-		driver.manage().window().setSize(new Dimension(1200, 765));
+	public void inicializa(){
+		driver.navigate().refresh();
 	}
 	
-	@After
-	public void finaliza(){
+	@AfterClass
+	public static void finaliza(){
 		if(driver != null){
 			driver.quit();
+			driver = null;
 		}
 	}
 	
 	@Test
 	public void teste() {
-		driver.get("http://www.google.com");
 		Assert.assertEquals("Google", driver.getTitle());
 	}
 

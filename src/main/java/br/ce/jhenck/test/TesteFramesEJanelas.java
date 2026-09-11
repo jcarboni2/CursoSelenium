@@ -1,30 +1,32 @@
 package br.ce.jhenck.test;
+import static br.ce.jhenck.core.DriverFactory.abrirPagina;
 import static br.ce.jhenck.core.DriverFactory.getDriver;
+import static br.ce.jhenck.core.DriverFactory.recarregarPagina;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
-import br.ce.jhenck.core.DriverFactory;
 
 
-public class TesteFramesEJanelas {
+public class TesteFramesEJanelas extends BaseTest {
 	
 	private DSL dsl;
 
+	@BeforeClass
+	public static void carregarPagina(){
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+
 	@Before
 	public void inicializa(){
-		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		recarregarPagina();
 		dsl = new DSL();
-	}
-	
-	@After
-	public void finaliza(){
-		DriverFactory.killDriver();
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package br.ce.jhenck.test;
-import static br.ce.jhenck.core.DriverFactory.getDriver;
+import static br.ce.jhenck.core.DriverFactory.abrirPagina;
+import static br.ce.jhenck.core.DriverFactory.recarregarPagina;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,9 +39,14 @@ public class TesteRegrasCadastro extends BaseTest {
 	public String msg;
 	
 
+	@BeforeClass
+	public static void carregarPagina(){
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+
 	@Before
 	public void inicializa(){
-		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		recarregarPagina();
 		dsl = new DSL();
 		page = new CampoTreinamentoPage();
 	}
