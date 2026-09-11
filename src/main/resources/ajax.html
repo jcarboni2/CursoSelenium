@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Ajax Local - Campo de Treinamento</title>
+</head>
+<body>
+<h3>Ajax Basico (local, sem dependencia externa)</h3>
+<form id="ajaxForm" onsubmit="return false;">
+<label for="ajax:name">Nome:</label>
+<input id="ajax:name" type="text" name="ajax:name" />
+<input id="ajax:button" type="button" value="Ajax Submit" onclick="enviar()" />
+</form>
+<div id="ajax:status" style="display:none">Carregando...</div>
+<div>Resultado: <span id="ajax:display"></span></div>
+<script>
+function enviar(){
+  var v = document.getElementById('ajax:name').value;
+  var s = document.getElementById('ajax:status');
+  s.style.display = 'block';
+  setTimeout(function(){
+    document.getElementById('ajax:display').textContent = v;
+    s.style.display = 'none';
+  }, 1500);
+}
+</script>
+</body>
+</html>

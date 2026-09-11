@@ -21,12 +21,12 @@ public class TestePrime {
 	
 	@After
 	public void finaliza(){
-		DriverFactory.getDriver();
+		DriverFactory.killDriver();
 	}
 
 	@Test
 	public void deveInteragirComRadioPrime(){
-		getDriver().get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/prime-local.html");
 		dsl.clicarRadio(By.xpath("//input[@id='j_idt701:console:0']/../..//span"));
 		Assert.assertTrue(dsl.isRadioMarcado("j_idt701:console:0"));
 		dsl.clicarRadio(By.xpath("//label[.='PS4']/..//span"));
@@ -35,7 +35,7 @@ public class TestePrime {
 	
 	@Test
 	public void deveInteragirComSelectPrime(){
-		getDriver().get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/prime-local.html");
 		dsl.selecionarComboPrime("j_idt701:console", "Xbox One");
 		Assert.assertEquals("Xbox One", dsl.obterTexto("j_idt701:console_label"));
 	}

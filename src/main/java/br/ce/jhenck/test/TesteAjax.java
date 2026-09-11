@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import br.ce.jhenck.core.DSL;
 import br.ce.jhenck.core.DriverFactory;
 
@@ -18,7 +20,7 @@ public class TesteAjax {
 
 	@Before
 	public void inicializa(){
-		getDriver().get("https://www.primefaces.org/showcase/ui/ajax/basic.xhtml");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/ajax.html");
 		dsl = new DSL();
 	}
 	
@@ -29,11 +31,10 @@ public class TesteAjax {
 
 	@Test
 	public void testAjax(){
-		dsl.escrever("j_idt700:name", "Teste");
-		dsl.clicarBotao("j_idt700:j_idt703");
-		WebDriverWait wait = new WebDriverWait(getDriver(), 30);
-//		wait.until(ExpectedConditions.textToBe(By.id("j_idt85:display"), "Teste"));
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("j_idt715")));
-		Assert.assertEquals("Teste", dsl.obterTexto("j_idt700:display"));
+		dsl.escrever("ajax:name", "Teste");
+		dsl.clicarBotao("ajax:button");
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("ajax:status")));
+		Assert.assertEquals("Teste", dsl.obterTexto("ajax:display"));
 	}
 }
