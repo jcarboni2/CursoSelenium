@@ -12,7 +12,7 @@ import br.ce.jhenck.core.RemoteBaseTest;
 
 import java.net.MalformedURLException;
 
-public class TesteGoogle extends RemoteBaseTest {
+public class GoogleTest extends RemoteBaseTest {
 	
 	// Browser único da classe: iniciado uma vez (@BeforeClass), página recarregada por teste.
 	private static WebDriver driver;
@@ -21,6 +21,9 @@ public class TesteGoogle extends RemoteBaseTest {
 	public static void carregarBrowser() throws MalformedURLException{
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+		if (Boolean.parseBoolean(System.getProperty("headless", "true"))) {
+			options.addArguments("--headless=new");
+		}
 		driver = newRemoteDriver(options);
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("http://www.google.com");

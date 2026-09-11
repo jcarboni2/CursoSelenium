@@ -23,7 +23,9 @@ public class DriverFactory {
 		if(driver == null) {
 			// Selenium 4.6+: Selenium Manager resolve o driver automaticamente (sem System.setProperty manual).
 			// Mantida a mesma assinatura para não quebrar DSL/BaseTest.
-			boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+			// Headless por padrão (rápido, funciona em CI sem display).
+			// Para ver o browser: mvn test -Dheadless=false (ou VM option -Dheadless=false na IDE).
+			boolean headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
 			switch (Propriedades.browser) {
 				case FIREFOX: {
 					FirefoxOptions options = new FirefoxOptions();

@@ -15,13 +15,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class TesteSincronismo extends BaseTest {
+public class SincronismoTest extends BaseTest {
 
 	private DSL dsl;
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before

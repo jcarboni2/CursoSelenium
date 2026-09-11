@@ -11,13 +11,13 @@ import org.openqa.selenium.By;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class TestePrime extends BaseTest {
+public class PrimeTest extends BaseTest {
 	
 	private DSL dsl;
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/prime-local.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/prime-local.html");
 	}
 
 	@Before

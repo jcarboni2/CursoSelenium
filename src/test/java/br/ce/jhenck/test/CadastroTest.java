@@ -10,13 +10,13 @@ import org.junit.Test;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.page.CampoTreinamentoPage;
 
-public class TesteCadastro extends BaseTest {
+public class CadastroTest extends BaseTest {
 	
 	private CampoTreinamentoPage page;
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before

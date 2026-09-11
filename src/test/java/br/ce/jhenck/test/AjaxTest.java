@@ -16,13 +16,13 @@ import java.time.Duration;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class TesteAjax extends BaseTest {
+public class AjaxTest extends BaseTest {
 	
 	private DSL dsl;
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/ajax.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/ajax.html");
 	}
 
 	@Before

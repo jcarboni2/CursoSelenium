@@ -20,7 +20,7 @@ import br.ce.jhenck.core.DSL;
 import br.ce.jhenck.page.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro extends BaseTest {
+public class RegrasCadastroTest extends BaseTest {
 
 	private DSL dsl;
 	private CampoTreinamentoPage page;
@@ -41,7 +41,7 @@ public class TesteRegrasCadastro extends BaseTest {
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before

@@ -11,17 +11,17 @@ Estudos com Selenium WebDriver baseados no curso do Wagner Aquino.
 git clone https://github.com/jcarboni2/CursoSelenium.git
 cd CursoSelenium
 
-mvn clean test              # todos os testes no build
-mvn test -Dtest=TesteCadastro   # um teste só
-mvn test -Dtest=SuiteTeste      # suíte (Cadastro + Regras)
-mvn test -Dheadless=true        # CI, sem abrir janela
+mvn clean test              # headless (padrão: rápido, funciona em CI)
+mvn test -Dheadless=false   # com o browser visível (debug local)
+mvn test -Dtest=CadastroTest    # um teste só
+mvn test -Dtest=SuiteTest       # suíte (Cadastro + Regras)
 mvn package -DskipTests         # pular testes
 ```
 
-Pela IDE: importe o `pom.xml` (JDK 17) e dê Run em `SuiteTeste` ou qualquer `Teste*`.
+Pela IDE: importe o `pom.xml` (JDK 17) e dê Run em `SuiteTest` ou qualquer `*Test` (roda headless por padrão; para ver o browser, adicione a VM option `-Dheadless=false`).
 
 ## Como funciona
-- **Testes no build:** o `pom.xml` inclui `Teste*`/`Suite*` no Surefire, então `mvn test` executa tudo.
+- **Testes no build:** layout padrão `src/test/java` com nomes `*Test` — o Surefire detecta tudo sem config extra.
 - **Browser único:** o Chrome abre uma vez e é reaproveitado por todos os testes (fecha na suíte ou no fim da JVM).
 - **Página por classe:** cada classe carrega sua página uma vez (`@BeforeClass` → `abrirPagina`) e dá só `refresh` antes de cada teste (`recarregarPagina`) — bem mais rápido.
 - **Prints:** `target/screenshot/<Teste>.jpg` | **Relatórios:** `target/surefire-reports/`
@@ -37,3 +37,4 @@ docker compose down
 - `0 testes` → rode `mvn clean test` (já configurado no pom).
 - `localhost:4444` sem resposta → rode sem flags (driver local) ou suba o compose.
 - Erro de Docker/Testcontainers → padrão é local; só use `-Dselenium.grid.container=true` com Docker atual.
+- Linux sem Chrome instalado (ex.: container Alpine) → `mvn test -Dwebdriver.chrome.driver=/usr/bin/chromedriver`.

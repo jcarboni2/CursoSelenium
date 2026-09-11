@@ -22,7 +22,7 @@ public class BaseTest {
 	@Before
 	public void inicializaBase() {
 		// Garante o browser único antes de cada teste (criado uma vez, reaproveitado).
-		// O fechamento é global: SuiteTeste.@AfterClass ou shutdown hook da JVM.
+		// O fechamento é global: SuiteTest.@AfterClass ou shutdown hook da JVM.
 		getDriver();
 	}
 	

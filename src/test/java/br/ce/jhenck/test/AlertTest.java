@@ -10,13 +10,13 @@ import org.junit.Test;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class TesteAlert extends BaseTest {
+public class AlertTest extends BaseTest {
 	
 	private DSL dsl;
 	
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before

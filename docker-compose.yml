@@ -1,4 +1,4 @@
-# Selenium Grid para o TesteGoogle (RemoteWebDriver).
+# Selenium Grid para o GoogleTest (RemoteWebDriver).
 # Uso: docker compose up -d  |  docker compose down
 services:
   selenium:

@@ -17,13 +17,13 @@ import org.openqa.selenium.WebElement;
 import br.ce.jhenck.core.BaseTest;
 import br.ce.jhenck.core.DSL;
 
-public class TesteCampoTreinamento extends BaseTest {
+public class CampoTreinamentoTest extends BaseTest {
 	
 	private DSL dsl;
 
 	@BeforeClass
 	public static void carregarPagina(){
-		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		abrirPagina("file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html");
 	}
 
 	@Before
