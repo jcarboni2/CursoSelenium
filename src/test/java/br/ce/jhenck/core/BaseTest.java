@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.OutputType;
@@ -17,15 +18,22 @@ public class BaseTest {
 	
 	@Rule
 	public TestName testName = new TestName();
+
+	@Before
+	public void setUpBase() {
+		// Ensures the single browser before each test (created once, reused).
+		// Teardown is global: SuiteTest.@AfterClass or JVM shutdown hook.
+		getDriver();
+	}
 	
 	@After
-	public void finaliza() throws IOException{
+	public void tearDown() throws IOException{
 		TakesScreenshot ss = (TakesScreenshot) getDriver();
-		File arquivo = ss.getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(arquivo, new File("target" + File.separator + "screenshot" +
+		File screenshotFile = ss.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(screenshotFile, new File("target" + File.separator + "screenshot" +
 				File.separator + testName.getMethodName() + ".jpg"));
 		
-		if(Propriedades.FECHAR_BROWSER) {
+		if(Properties.CLOSE_BROWSER) {
 			killDriver();
 		}
 	}

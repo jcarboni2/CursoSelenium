@@ -6,13 +6,42 @@
 	<artifactId>CursoSelenium</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<selenium.version>4.49.0</selenium.version>
+		<testcontainers.version>1.20.1</testcontainers.version>
+		<commons-compress.version>1.28.0</commons-compress.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<release>17</release>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- Testes no layout padrão src/test/java com nomes *Test:
+			     o Surefire detecta tudo sem includes custom. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<!--<version>3.4.0</version> -->
-			<version>3.141.59</version>
+			<!-- Migrado de 3.141.59 para 4.x: exige Java 11+, roda em 17, traz Selenium Manager (sem driver manual) -->
+			<version>${selenium.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -27,6 +56,29 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.14.0</version>
+		</dependency>
+
+		<!-- Testcontainers: sobe o Selenium Grid em container no @Before (sem Grid manual) -->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>${testcontainers.version}</version>
+		</dependency>
+
+		<!-- Override do commons-compress transitivo do Testcontainers (1.24.0):
+		     corrige CVE-2024-25710 (fix 1.26.0) e CVE-2024-26308 (fix 1.27.0).
+		     Dependência direta vence pela regra nearest-wins do Maven. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>${commons-compress.version}</version>
+		</dependency>
+
+		<!-- Logger simples p/ Testcontainers/Selenium (evita warning SLF4J NOP) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.36</version>
 		</dependency>
 	</dependencies>
 </project>

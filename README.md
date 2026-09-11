@@ -1,20 +1,41 @@
-# CursoSelenium
+# CursoSelenium 🧪
 
-Este repositório foi criado baseado nas aulas do curso do Wagner Arquino: Testes funcionais com Selenium WebDriver: Do básico ao GRID.
+Estudos com Selenium WebDriver baseados no curso do Wagner Aquino.
 
+## Pré-requisitos
+- JDK 17, Maven 3.9+, Chrome atual, IDE em UTF-8
+- Selenium 4.49 resolve o driver sozinho (sem baixar chromedriver)
 
-## Iniciando
+## Rodando
+```bash
+git clone https://github.com/jcarboni2/CursoSelenium.git
+cd CursoSelenium
 
-Este projeto irá rodar em uma maquina local para propositos de testes.
+mvn clean test              # headless (padrão: rápido, funciona em CI)
+mvn test -Dheadless=false   # com o browser visível (debug local)
+mvn test -Dtest=RegistrationTest    # um teste só
+mvn test -Dtest=SuiteTest       # suíte (Registration + Rules)
+mvn package -DskipTests         # pular testes
+```
 
+Pela IDE: importe o `pom.xml` (JDK 17) e dê Run em `SuiteTest` ou qualquer `*Test` (roda headless por padrão; para ver o browser, adicione a VM option `-Dheadless=false`).
 
-### Instalando
+## Como funciona
+- **Testes no build:** layout padrão `src/test/java` com nomes `*Test` — o Surefire detecta tudo sem config extra.
+- **Browser único:** o Chrome abre uma vez e é reaproveitado por todos os testes (fecha na suíte ou no fim da JVM).
+- **Página por classe:** cada classe carrega sua página uma vez (`@BeforeClass` → `openPage`) e dá só `refresh` antes de cada teste (`reloadPage`) — bem mais rápido.
+- **Prints:** `target/screenshot/<Teste>.jpg` | **Relatórios:** `target/surefire-reports/`
 
-## Clone este projeto
+## Grid (opcional)
+```bash
+docker compose up -d
+mvn test -Dselenium.grid.url=http://localhost:4444/wd/hub
+docker compose down
+```
 
-$ git clone https://github.com/jcarboni2/CursoSelenium.git
-
-
-### Pré requisito
-
-$ Antes de iniciar seus testes, você precisa importar todas dependências encontradas no arquivo pom.xml, definir Text file encoding da IDE usada (ex: Eclipse) para UTF-8, realizar o download e setar os webdrivers nas variáveis de ambiente, realizar o download e configurar o JDK versão 1.8.XXX no projeto.
+## Se der erro
+- `0 testes` → rode `mvn clean test` (já configurado no pom).
+- Sem internet → só o `GoogleTest` é pulado (`Skipped: 1`, com aviso no log); o resto é local e passa.
+- `localhost:4444` sem resposta → rode sem flags (driver local) ou suba o compose.
+- Erro de Docker/Testcontainers → padrão é local; só use `-Dselenium.grid.container=true` com Docker atual.
+- Linux sem Chrome instalado (ex.: container Alpine) → `mvn test -Dwebdriver.chrome.driver=/usr/bin/chromedriver`.

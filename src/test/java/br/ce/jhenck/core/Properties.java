@@ -1,8 +1,8 @@
 package br.ce.jhenck.core;
 
-public class Propriedades {
+public class Properties {
 	
-	public static boolean FECHAR_BROWSER = false;
+	public static boolean CLOSE_BROWSER = false;
 	
 	public static Browsers browser = Browsers.CHROME;
 	

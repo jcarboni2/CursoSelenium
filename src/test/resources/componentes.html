@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" encoding="ISO-8859-1"> 
 <head>
-<title>Campo de Treinamento</title>
+<title>Training Field</title>
 
 <SCRIPT LANGUAGE="JavaScript">
 function createPopup(title){
@@ -17,31 +17,31 @@ function timingChange() {
 }
 
 function clicado() { 
-	document.getElementById('buttonSimple').value = "Obrigado!"
+	document.getElementById('buttonSimple').value = "Thank you!"
 }
 
 function voltou() { 
-	document.getElementById('resultado').innerHTML = "Voltou!"; 
+	document.getElementById('resultado').innerHTML = "Back!"; 
 }
 
 function fazerCadastro() {
 	if(document.getElementById('elementosForm:nome').value == '') {
-		alert("Nome eh obrigatorio");
+		alert("First name is required");
 		return;
 	}
 	if(document.getElementById('elementosForm:sobrenome').value == '') {
-		alert("Sobrenome eh obrigatorio");
+		alert("Last name is required");
 		return;
 	}
 	if(!document.getElementById('elementosForm:sexo:0').checked &&
 			!document.getElementById('elementosForm:sexo:1').checked) {
-		alert("Sexo eh obrigatorio");
+		alert("Gender is required");
 		return;
 	}
 	if(document.getElementById('elementosForm:comidaFavorita:3').checked &&
 			(document.getElementById('elementosForm:comidaFavorita:0').checked || 
 				document.getElementById('elementosForm:comidaFavorita:1').checked)) {
-		alert("Tem certeza que voce eh vegetariano?");
+		alert("Are you sure you are vegetarian?");
 		return;
 	}
 	var esportes = '';
@@ -50,23 +50,23 @@ function fazerCadastro() {
 		if(options[i].selected){
 			esportes += ' ' + options[i].text + ' '; 
 		}
-		if(esportes.indexOf('O que eh esporte?') != -1 && esportes.length != 19) {
-			alert("Voce faz esporte ou nao?");
+		if(esportes.indexOf('What is a sport?') != -1 && esportes.length != 18) {
+			alert("Do you play sports or not?");
 			return;
 		}
 	}
 	document.getElementById('resultado').innerHTML = 
-		"<span>Cadastrado!</span><br/>"
-			+ "<div id='descNome'>Nome: <span>" + document.getElementById('elementosForm:nome').value + "</span></div>"
-			+ "<div id='descSobrenome'>Sobrenome: <span>" + document.getElementById('elementosForm:sobrenome').value + "</span></div>"
-			+ "<div id='descSexo'>Sexo: <span>" + (document.getElementById('elementosForm:sexo:0').checked? 'Masculino': (document.getElementById('elementosForm:sexo:1').checked? 'Feminino': 'Desconhecido')) + "</span></div>"
-			+ "<div id=\'descComida\'>Comida: <span>" + (document.getElementById('elementosForm:comidaFavorita:0').checked? ' Carne ': '') 
-					+ (document.getElementById('elementosForm:comidaFavorita:1').checked? ' Frango ': '') 
+		"<span>Registered!</span><br/>"
+			+ "<div id='descNome'>First name: <span>" + document.getElementById('elementosForm:nome').value + "</span></div>"
+			+ "<div id='descSobrenome'>Last name: <span>" + document.getElementById('elementosForm:sobrenome').value + "</span></div>"
+			+ "<div id='descSexo'>Gender: <span>" + (document.getElementById('elementosForm:sexo:0').checked? 'Male': (document.getElementById('elementosForm:sexo:1').checked? 'Female': 'Unknown')) + "</span></div>"
+			+ "<div id=\'descComida\'>Food: <span>" + (document.getElementById('elementosForm:comidaFavorita:0').checked? ' Meat ': '') 
+					+ (document.getElementById('elementosForm:comidaFavorita:1').checked? ' Chicken ': '') 
 					+ (document.getElementById('elementosForm:comidaFavorita:2').checked? ' Pizza ': '') 
-					+ (document.getElementById('elementosForm:comidaFavorita:3').checked? ' Vegetariano ': '') + "</span></div>"
-			+ "<div id='descEscolaridade'>Escolaridade: <span>" + document.getElementById('elementosForm:escolaridade').value + "</span></div>"
-			+ "<div id='descEsportes'>Esportes: <span>" + esportes + "</span></div>"
-			+ "<div id='descSugestoes'>Sugestoes: <span>" + document.getElementById('elementosForm:sugestoes').value + "</span></div>";
+					+ (document.getElementById('elementosForm:comidaFavorita:3').checked? ' Vegetarian ': '') + "</span></div>"
+			+ "<div id='descEscolaridade'>Education: <span>" + document.getElementById('elementosForm:escolaridade').value + "</span></div>"
+			+ "<div id='descEsportes'>Sports: <span>" + esportes + "</span></div>"
+			+ "<div id='descSugestoes'>Suggestions: <span>" + document.getElementById('elementosForm:sugestoes').value + "</span></div>";
 }
 
 </script>
@@ -78,90 +78,90 @@ function fazerCadastro() {
 			enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="elementosForm" value="elementosForm" />
 
-			<h3>Campo de Treinamento</h3>
-			<input type="button" id="buttonSimple" value="Clique Me!" onClick="javascript:clicado()">
-			<input type="button" id="buttonPopUpEasy" value="Abrir Popup" onClick="javascript:createPopup('Popup')">
-			<input type="button" id="buttonPopUpHard" value="Abrir Popup do Mal" onClick="javascript:createPopup('')">
-			<input type="button" id="buttonDelay" value="Resposta Demorada" onClick="javascript:timingChange()">
+			<h3>Training Field</h3>
+			<input type="button" id="buttonSimple" value="Click Me!" onClick="javascript:clicado()">
+			<input type="button" id="buttonPopUpEasy" value="Open Popup" onClick="javascript:createPopup('Popup')">
+			<input type="button" id="buttonPopUpHard" value="Open Evil Popup" onClick="javascript:createPopup('')">
+			<input type="button" id="buttonDelay" value="Slow Response" onClick="javascript:timingChange()">
 			<iframe id="frame1" src="frame.html" style="border: 0px" height="20"></iframe>
 			<table bgcolor="FFDEAD">
 				<tbody>
 					<tr>
-						<td><label for="elementosForm:nome">Nome:</label></td>
+						<td><label for="elementosForm:nome">First name:</label></td>
 						<td><input id="elementosForm:nome" type="text"
 							name="elementosForm:nome" maxlength="30" size="30" /></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:sobrenome">Sobrenome:</label></td>
+						<td><label for="elementosForm:sobrenome">Last name:</label></td>
 						<td><input id="elementosForm:sobrenome" type="text"
 							name="elementosForm:sobrenome" maxlength="30" size="30" /></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:sexo">Sexo:</label></td>
+						<td><label for="elementosForm:sexo">Gender:</label></td>
 						<td><table id="elementosForm:sexo">
 								<tr>
 									<td><input type="radio" name="elementosForm:sexo"
 										id="elementosForm:sexo:0" value="M" /><label
-										for="elementosForm:sexo:0"> Masculino</label></td>
+										for="elementosForm:sexo:0"> Male</label></td>
 									<td><input type="radio" name="elementosForm:sexo"
 										id="elementosForm:sexo:1" value="F" /><label
-										for="elementosForm:sexo:1"> Feminino</label></td>
+										for="elementosForm:sexo:1"> Female</label></td>
 								</tr>
 							</table></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:comidaFavorita">Qual
-								sua comida favorita?</label></td>
+						<td><label for="elementosForm:comidaFavorita">What
+								is your favorite food?</label></td>
 						<td><table id="elementosForm:comidaFavorita">
 								<tr>
 									<td><input name="elementosForm:comidaFavorita"
-										id="elementosForm:comidaFavorita:0" value="carne"
+										id="elementosForm:comidaFavorita:0" value="meat"
 										type="checkbox" /><label for="elementosForm:comidaFavorita:0"
-										class=""> Carne</label></td>
+										class=""> Meat</label></td>
 									<td><input name="elementosForm:comidaFavorita"
-										id="elementosForm:comidaFavorita:1" value="frango"
+										id="elementosForm:comidaFavorita:1" value="chicken"
 										type="checkbox" /><label for="elementosForm:comidaFavorita:1"
-										class=""> Frango</label></td>
+										class=""> Chicken</label></td>
 									<td><input name="elementosForm:comidaFavorita"
 										id="elementosForm:comidaFavorita:2" value="pizza"
 										type="checkbox" /><label for="elementosForm:comidaFavorita:2"
 										class=""> Pizza</label></td>
 									<td><input name="elementosForm:comidaFavorita"
-										id="elementosForm:comidaFavorita:3" value="vegetariano"
+										id="elementosForm:comidaFavorita:3" value="vegetarian"
 										type="checkbox" /><label for="elementosForm:comidaFavorita:3"
-										class=""> Vegetariano</label></td>
+										class=""> Vegetarian</label></td>
 								</tr>
 							</table></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:escolaridade">Escolaridade:</label></td>
+						<td><label for="elementosForm:escolaridade">Education:</label></td>
 						<td><select id="elementosForm:escolaridade"
 							name="elementosForm:escolaridade" size="1">
-								<option value="1grauincomp">1o grau incompleto</option>
-								<option value="1graucomp">1o grau completo</option>
-								<option value="2grauincomp">2o grau incompleto</option>
-								<option value="2graucomp">2o grau completo</option>
-								<option value="superior">Superior</option>
-								<option value="especializacao">Especializacao</option>
-								<option value="mestrado">Mestrado</option>
-								<option value="doutorado">Doutorado</option>
+								<option value="incomplete_primary">Incomplete primary school</option>
+								<option value="complete_primary">Complete primary school</option>
+								<option value="incomplete_high">Incomplete high school</option>
+								<option value="complete_high">Complete high school</option>
+								<option value="higher">Higher education</option>
+								<option value="specialization">Specialization</option>
+								<option value="masters">Master's degree</option>
+								<option value="phd">PhD</option>
 						</select></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:esportes">Pratica
-								esportes?</label></td>
+						<td><label for="elementosForm:esportes">Do you
+								play sports?</label></td>
 						<td>
 							<select multiple id="elementosForm:esportes">
-								<option value="natacao">Natacao</option>
-								<option value="futebol">Futebol</option>
-								<option value="Corrida">Corrida</option>
-								<option value="Karate">Karate</option>
-								<option value="nada">O que eh esporte?</option>
+								<option value="swimming">Swimming</option>
+								<option value="soccer">Soccer</option>
+								<option value="running">Running</option>
+								<option value="karate">Karate</option>
+								<option value="none">What is a sport?</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:sugestoes">Sugestoes:</label></td>
+						<td><label for="elementosForm:sugestoes">Suggestions:</label></td>
 						<td><textarea id="elementosForm:sugestoes"
 								name="elementosForm:sugestoes" cols="50" rows="10"></textarea></td>
 					</tr>
@@ -170,9 +170,9 @@ function fazerCadastro() {
 						<td><table id="elementosForm:tableUsuarios" border="1">
 								<thead>
 									<tr>
-										<th scope="col">Nome</th>
-										<th scope="col">Escolaridade</th>
-										<th scope="col">Botao</th>
+										<th scope="col">Name</th>
+										<th scope="col">Education</th>
+										<th scope="col">Button</th>
 										<th scope="col">Checkbox</th>
 										<th scope="col">Radio</th>
 										<th scope="col">Input</th>
@@ -180,10 +180,10 @@ function fazerCadastro() {
 								</thead>
 								<tbody>
 									<tr>
-										<td>Francisco</td>
-										<td>Superior</td>
+										<td>Frank</td>
+										<td>Higher education</td>
 										<td><input type="button"
-											value="Clique aqui" onclick="alert('Francisco')" /></td>
+											value="Click here" onclick="alert('Frank')" /></td>
 										<td><input type="checkbox" /></td>
 										<td><table>
 												<tr>
@@ -193,10 +193,10 @@ function fazerCadastro() {
 										<td><input type="text" size="20" /></td>
 									</tr>
 									<tr>
-										<td>Maria</td>
-										<td>Doutorado</td>
+										<td>Mary</td>
+										<td>PhD</td>
 										<td><input type="button" name="elementosForm:tableUsuarios:2:j_idt440"
-											value="Clique aqui" onclick="alert('Maria')" /></td>
+											value="Click here" onclick="alert('Mary')" /></td>
 										<td><input type="checkbox"/></td>
 										<td><table>
 												<tr>
@@ -206,10 +206,10 @@ function fazerCadastro() {
 										<td><input type="text" size="20" /></td>
 									</tr>
 									<tr>
-										<td>Usuario A</td>
-										<td>Mestrado</td>
+										<td>User A</td>
+										<td>Master's degree</td>
 										<td><input type="button"
-											value="Clique aqui" onclick="alert('Usuario A')" /></td>
+											value="Click here" onclick="alert('User A')" /></td>
 										<td><input type="checkbox" /></td>
 										<td><table>
 												<tr>
@@ -219,10 +219,10 @@ function fazerCadastro() {
 										<td><input type="text" size="20" /></td>
 									</tr>
 									<tr>
-										<td>Doutorado</td>
-										<td>Doutorado</td>
+										<td>PhD</td>
+										<td>PhD</td>
 										<td><input type="button"
-											value="Clique aqui" onclick="alert('Doutorado')" /></td>
+											value="Click here" onclick="alert('PhD')" /></td>
 										<td><input type="checkbox" /></td>
 										<td><table>
 												<tr>
@@ -232,10 +232,10 @@ function fazerCadastro() {
 										<td><input type="text" size="20" /></td>
 									</tr>
 									<tr>
-										<td>Usuario B</td>
-										<td>Superior</td>
+										<td>User B</td>
+										<td>Higher education</td>
 										<td><input type="button"
-											value="Clique aqui" onclick="alert('Usuario B')" /></td>
+											value="Click here" onclick="alert('User B')" /></td>
 										<td><input type="checkbox"/></td>
 										<td><table>
 												<tr>
@@ -248,21 +248,21 @@ function fazerCadastro() {
 							</table></td>
 					</tr>
 					<tr>
-						<td><label for="elementosForm:tabelaSemJSF"><span>Tabela
-								sem header</span></label></td>
+						<td><label for="elementosForm:tabelaSemJSF"><span>Table
+								without header</span></label></td>
 						<td>
 							<table id="tabelaSemJSF">
 								<tr>
-									<td>Nome</td>
-									<td>Escolaridade</td>
+									<td>Name</td>
+									<td>Education</td>
 								</tr>
 								<tr>
-									<td>Usuario A</td>
-									<td>Mestrado</td>
+									<td>User A</td>
+									<td>Master's degree</td>
 								</tr>
 								<tr>
-									<td>Usuario B</td>
-									<td>Analfabeto</td>
+									<td>User B</td>
+									<td>Illiterate</td>
 								</tr>
 
 							</table>
@@ -270,28 +270,28 @@ function fazerCadastro() {
 					</tr>
 					<tr>
 						<td><input id="elementosForm:cadastrar" type="button"
-							name="elementosForm:cadastrar" value="Cadastrar"
+							name="elementosForm:cadastrar" value="Register"
 							onclick="javascript:fazerCadastro()" /></td>
 					</tr>
 				</tbody>
 			</table>
-			<span class="facilAchar">Cuidado onde clica, muitas armadilhas...</span>
+			<span class="facilAchar">Careful where you click, many pitfalls...</span>
 			<input type="hidden" name="javax.faces.ViewState"
 				id="j_id1:javax.faces.ViewState:0"
 				value="-8482990028596267160:-5465474793192341771" autocomplete="off" />
 		</form>
 		<br />
-		<div id="resultado">Status: Nao cadastrado</div>
+		<div id="resultado">Status: Not registered</div>
 		<br />
 	<center>
-		<input type="button" id="alert" value="Alert" onclick="alert('Alert Simples');" />
-		<input type="button" id="confirm" value="Confirm" onclick="if(confirm('Confirm Simples')) alert('Confirmado'); else alert('Negado');" />
-		<input type="button" id="prompt" value="Prompt" onclick="var result = prompt('Digite um numero'); if(confirm('Era '+ result + '?')) alert(':D'); else alert(':(');" />
+		<input type="button" id="alert" value="Alert" onclick="alert('Simple Alert');" />
+		<input type="button" id="confirm" value="Confirm" onclick="if(confirm('Simple Confirm')) alert('Confirmed'); else alert('Denied');" />
+		<input type="button" id="prompt" value="Prompt" onclick="var result = prompt('Enter a number'); if(confirm('Was it '+ result + '?')) alert(':D'); else alert(':(');" />
 	</center>
 		<br />
-		<a href="#" onclick="javascript:voltou()">Voltar</a>
+		<a href="#" onclick="javascript:voltou()">Back</a>
 	</center>
 	<iframe id="frame2" src="frame.html" style="border: 0px" height="20"></iframe>
-	Desenvolvido para o <a href="http://bit.ly/CursoSeleniumjhenck">Curso de Testes Funcionais automatizados com Selenium Webdriver</a>
+	Developed for the <a href="http://bit.ly/CursoSeleniumjhenck">Automated Functional Testing Course with Selenium Webdriver</a>
 </body>
 </html>

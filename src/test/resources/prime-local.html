@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Local Prime - Training Field</title>
+<style>
+.clickable { cursor: pointer; border: 1px solid #999; padding: 2px 10px; }
+#j_idt701_console_items { display: none; border: 1px solid #999; width: 220px; }
+#j_idt701_console_items li { cursor: pointer; list-style: none; padding: 2px 6px; }
+</style>
+</head>
+<body>
+<h3>OneRadio (local, no external dependency)</h3>
+<div>
+  <div>
+    <input type="radio" id="j_idt701:console:0" name="j_idt701:console" value="Xbox One" />
+  </div>
+  <span class="clickable" onclick="document.getElementById('j_idt701:console:0').checked = true;">Select Xbox</span>
+</div>
+<div>
+  <label>PS4</label>
+  <span class="clickable" onclick="document.getElementById('j_idt701:console:1').checked = true;">Select PS4</span>
+  <input type="radio" id="j_idt701:console:1" name="j_idt701:console" value="PS4" />
+</div>
+
+<h3>OneMenu (local, no external dependency)</h3>
+<div>
+  <div>
+    <input type="hidden" id="j_idt701:console_input" value="" />
+  </div>
+  <span class="clickable" onclick="toggleItems()">Open options</span>
+</div>
+<div id="j_idt701:console_items">
+  <ul>
+    <li onclick="selecionar('Xbox One')">Xbox One</li>
+    <li onclick="selecionar('PS4')">PS4</li>
+    <li onclick="selecionar('Wii U')">Wii U</li>
+  </ul>
+</div>
+<label id="j_idt701:console_label">Select</label>
+
+<script>
+function toggleItems(){
+  var el = document.getElementById('j_idt701:console_items');
+  el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+}
+function selecionar(valor){
+  document.getElementById('j_idt701:console_input').value = valor;
+  document.getElementById('j_idt701:console_label').textContent = valor;
+  document.getElementById('j_idt701:console_items').style.display = 'none';
+}
+</script>
+</body>
+</html>

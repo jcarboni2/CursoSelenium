@@ -1,0 +1,8 @@
+# Selenium Grid para o GoogleTest (RemoteWebDriver).
+# Uso: docker compose up -d  |  docker compose down
+services:
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+    shm_size: 2gb
